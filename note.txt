@@ -1,0 +1,267 @@
+(1)Sales shoes from online 
+function:
+(1)register shoes from admin
+(2)register brands
+(3)register categories
+(4)register user
+(5)order shoes from online
+(6)search shoes by brand name
+(7)search shoes by category name
+(8)search shoes by  name
+(9)user login/logout
+(10)check user's order history
+(11)update user's registered information
+
+Database:
+Tables:
+(1)products:
+(id (int12),
+name(varchar50),
+product_code(varchar50),
+product_brand_id(int12),
+product_category_id(int12),
+product_gender_id(tinyint)
+product_price(int12),
+product_photo(varchar100),
+product_description(text),
+created_at(timestamp),
+updated_at(timestamp));
+
+(2)brands
+id(int12),
+brand_name(varchar50),
+brand_code(varchar5),
+created_at(timestamp),
+updated_at(timestamp);
+
+(3)Categories:
+id(int12),
+category_name(varchar50),
+category_code(varchar5),
+created_at(timestamp),
+updated_at(timestamp));
+
+(4)Gender:
+id(int12),
+gender_name(varchar10),
+created_at(timestamp),
+updated_at(timestamp));
+
+
+
+
+
+
+
+
+
+
+
+
+(1)Brands Registration
+
+
+(Backend Action Code brand_registration.php)
+-Accept 2 POST data brand_name and brand_code
+-using variable name $brand_name and $brand_code
+-prepare sql statement
+-prepare data array
+-execute sql query using data array
+-redirect to brands.php page
+
+
+http://www.myanmaritc.com/download/pdo.pdf
+
+
+
+
+
+Category Registration
+-------------------
+(UI - categories.php)
+-create 2 text box using name category_name and category_code
+- go to action category_registration.php
+using method post.
+(Backend Code- category_registration.php)
+-Accept 2 data values category_name and category_code
+-prepare data array
+-make db_connection using pdo
+-prepare sql statement
+-execute statement using data array
+-redirect to categories.php
+
+
+
+(Edit brand - edit_brand.php)
+-accept id value with request mehtod
+-make db connection
+-prepare sql statement to query a brand by id
+-execute statement
+-show result values in text box.
+-prepare a from with 2 text boxes named as brnd_name and brand_code
+astion to update_brand.php using mehtod post;
+-create hidden text field to carry id in action
+-submit button name in Update
+
+(Update barand Information - update_barnd.php)
+-Accept 3 post values id,brand_name,brand_code
+-prepare data array to execute
+-make db connection
+-make sql query
+-prepare query statement
+-execute statement using data array
+-on success,redirect to brands.php
+
+(Delete Brand_ delete_brand.php)
+-Accept POST value id 
+-prepare data array
+-make db connection
+-prepare sql
+Brands:
+Addidas -> ADS
+Calvin Klein -> CKL
+Converse -> Cov
+Michael Kors -> MKO
+Nike -> NKE
+
+Categories:
+Sandals -> SAD
+Heels -> HEL
+Athletic -> ATH
+Slippers -> SLP
+Boots -> BOT
+
+
+Products Registration(
+products.php-UI)
+-create 8 input elements for product registration
+-(1) text input for product_name
+-(2) select box name produxt_brand_id
+and select all brands from brand table
+-(3) select box named
+product_catgory_id and select all categories from categories table
+-(4)show gender male and female in radio box named gender
+-(5)generate latest product_code from system after selction of brand and category.Show product_code in text box named product_code
+-(6)text box with input type number for product price named product_price
+-(7)file upload named product_photo to upload product photo
+-(8) text area box named product_description to enter product_detail information.
+
+(Generate latest Product Code by brand_code and category_code)
+-Accept brand_code and category_code,brand_id,category_id
+-join two code with '-' (Example: ADS-SNK-)
+-prepare query to find the latest code in product tabel using brand_id and category_id
+-if there is no product,generate default product_code,append '00001' in brand_code and category_code pair(Example:ADS-SNK-00001)
+-if there is a product,increase 1 to the latest product code and generate product_code
+-use jquery ajax post method by calling get_latest_product_code.php with four data brand_code,category_code,brand_id,category_id.
+-use return value from get_latest_product_code.php
+
+
+
+Edit Product Form -edit-product.php
+
+1.Accept id from URL using REQUEST method
+2.db connection
+3. prepare sql
+4. prepare statement using pdo
+5. statement execute
+6. get product info with fetchAll method
+7. show information in from value
+
+
+
+(Add to cart - Add product to array and save to local storage as JSON String)
+- get data from button event
+- make an product object
+- call add to cart function
+- call update cart count function
+
+
+Add to cart function
+-check localstorage named in mycart
+- if (mycart is null): create a new mycart json string
+- if (mycart ):use my cart as json string
+
+
+
+user-login.php
+-Accept 2 data (user_email,user_password)
+-prepare data array
+-connect to db
+-prepare statement with sql
+-if(user is in database):
+(1)create a user_loggedin session with value=true
+(2)create a user_id session with user id
+(3)create a user_name session in user name 
+if(user is not in database):
+(1)redirect to login page with status=2
+
+
+
+(product_orders table)
+(id(int),
+voucherid(varchar50),
+user_id(int11),
+date(date),
+order_status(tinyint),
+create_at(timestamp),
+updated_at(timestamp)
+)
+
+
+(produt_order_details table)
+(id(int11),
+voucherid(varchar50),
+product_id(int11),
+product_price(int11),
+created_at(timestamp),
+updated_at(timestamp)
+)
+-(product Order)
+-JQuery Ajax with btn_order
+-use user_id,mycart data for $.post
+call to order_product.php
+if(success):return true value and clear mycart,clear
+cart_item_count,clear table
+-show message of order confirmation with voucherid.
+
+
+(Order product-order_product.php)
+_Accept data from post method(user_id,mycart)
+-use json_encode method to convert string to JSON obj.
+
+
+(Order_status):
+(id(int11)),
+status_name(varchar20),
+created_at(timestamp),
+updated_at(timestamp)
+)
+confirmed
+delivering
+delivered
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
